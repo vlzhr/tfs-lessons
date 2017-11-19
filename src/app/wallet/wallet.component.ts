@@ -11,8 +11,6 @@ export class WalletComponent implements OnInit {
   total = 0;
   isAddPurchaseOpen = false;
 
-  private currentOpen: number;
-
   constructor() {
     this.toggleAdd();
   }
@@ -34,19 +32,6 @@ export class WalletComponent implements OnInit {
     this.isAddPurchaseOpen = !this.isAddPurchaseOpen;
   }
 
-  onPreviewClick(index: number) {
-    if (index === this.currentOpen) {
-      this.currentOpen = null;
-      return;
-    }
-
-    this.currentOpen = index;
-  }
-
-  isCurrentOpen(index: number): boolean {
-    return this.currentOpen === index;
-  }
-
   private addPurchases(purchases: Purchase[]) {
     this.purchases = purchases.concat(this.purchases);
     this.total = this.getTotal();
@@ -57,22 +42,22 @@ export class WalletComponent implements OnInit {
       {
         title: 'Проезд на метро',
         price: 1700,
-        date: new Date(2017, 10, 3)
+        date: '10.10.2017'
       },
       {
         title: 'IPhone X 256gb',
         price: 91990,
-        date: new Date(2017, 10, 3)
+        date: '10.10.2017'
       },
       {
         title: 'Лапша "Доширак"',
         price: 40,
-        date: new Date(2017, 10, 3)
+        date: '10.10.2017'
       }
     ];
   }
 
   private getTotal(): number {
-    return this.purchases.reduce((total, {price}) => total += price, 0);
+    return this.purchases.reduce((total, {price}) => total + price, 0);
   }
 }

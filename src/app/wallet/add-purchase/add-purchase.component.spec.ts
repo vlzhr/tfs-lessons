@@ -48,8 +48,7 @@ describe('AddPurchaseComponent | форма добавления покупки'
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      imports: [AddPurchaseModule],
-      declarations: [AddPurchaseComponent]
+      imports: [AddPurchaseModule]
     })
       .compileComponents();
   }));
@@ -65,7 +64,7 @@ describe('AddPurchaseComponent | форма добавления покупки'
     expect(component).toBeTruthy();
   });
 
-  describe('инициалищация', () => {
+  describe('инициализация', () => {
     describe('в модель', () => {
       it('пустой title', () => {
         expect(component.form.value.title).toBe('');

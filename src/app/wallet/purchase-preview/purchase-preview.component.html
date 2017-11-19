@@ -2,11 +2,3 @@
   {{purchase.title}}
   <span class="badge badge-secondary">{{purchase.price | currency:'RUB':''}}</span>
 </div>
-<div class="preview-body" *ngIf="isOpen">
-  <table class="details">
-    <tr>
-      <th>Дата:</th>
-      <td>{{purchase.date | date:'longDate'}}</td>
-    </tr>
-  </table>
-</div>
