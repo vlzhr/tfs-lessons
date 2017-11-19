@@ -16,16 +16,13 @@ export class AddPurchaseComponent implements OnInit {
 
   ngOnInit() {
     this.form = this.formBuilder.group({
-      title: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(80)]],
-      price: ['', [Validators.required, Validators.pattern(/^[0-9.]*$/), Validators.min(10), Validators.max(1000000)]],
-      date: [''],
-      comment: ['']
+      title: ['', [Validators.required]],
+      price: [''],
     });
   }
 
   onSubmit() {
     const price = parseFloat(this.form.value.price);
-    const date = '11.10.2017';
 
     if (isNaN(price)) {
       return;
@@ -34,7 +31,7 @@ export class AddPurchaseComponent implements OnInit {
     const purchase: Purchase = {
       title: this.form.value.title,
       price: price,
-      date: date
+      date: new Date()
     };
 
     this.addPurchase.emit(purchase);

@@ -1,5 +1,3 @@
 .form-control.ng-invalid.ng-touched {
   border-color: #dc3545;
 }
-
-/* http://getbootstrap.com/docs/4.0/components/forms/#server-side подскажет, что делать*/

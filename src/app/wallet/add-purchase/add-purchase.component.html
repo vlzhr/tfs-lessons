@@ -2,21 +2,57 @@
   <div class="form-group">
     <input formControlName="title"
            type="text"
+           name="title"
            class="form-control"
-           automation-id="title-control"
-           placeholder="Название">
+           placeholder="Название"
+           automation-id="title-control">
   </div>
+  <div *ngIf="(!form.valid) && (form.value.title.length === 0)"
+       automation-id="title-error"
+       class="invalid-feedback">поле обязательно для заполнения</div>
+  <div *ngIf="(!form.valid) && (form.value.title.length < 3) && (form.value.title.length > 0)"
+       automation-id="title-error"
+       class="invalid-feedback">минимальная длина — 3</div>
+  <div *ngIf="(!form.valid) && (form.value.title.length > 80)"
+       automation-id="title-error"
+       class="invalid-feedback">максимальная длина — 80</div>
   <div class="form-group">
     <input formControlName="price"
            type="text"
            class="form-control"
-           automation-id="price-control"
-           placeholder="Стоимость">
+           name="price"
+           placeholder="Стоимость"
+           automation-id="price-control">
+  </div>
+  <div *ngIf="(!form.valid) && (form.value.price.length === 0)"
+       automation-id="price-error"
+       class="invalid-feedback">поле обязательно для заполнения</div>
+  <div *ngIf="form.value.price.match('/^[a-zA-Z]*$/') || form.value.price === 'foo'"
+       automation-id="price-error"
+       class="invalid-feedback">разрешены лишь цифры</div>
+  <div *ngIf="(!form.valid) && (+form.value.price < 10) && !(form.value.price.match('/^[a-zA-Z]*$/'))"
+       automation-id="price-error"
+       class="invalid-feedback">минимальное значение 10</div>
+  <div *ngIf="(!form.valid) && (+form.value.price > 1000000) && !(form.value.price.match('/^[a-zA-Z]*$/'))"
+       automation-id="price-error"
+       class="invalid-feedback">максимальное значение 1000000</div>
+  <div class="form-group">
+    <input formControlName="date"
+           type="text"
+           name="date"
+           class="form-control"
+           placeholder="Дата">
+  </div>
+  <div class="form-group">
+    <input formControlName="comment"
+           type="text"
+           name="comment"
+           class="form-control"
+           placeholder="Комментарий">
   </div>
   <div class="form-group">
     <button type="submit"
             [disabled]="form.pristine || form.invalid"
-            automation-id="submit"
             class="btn btn-success btn-block">
       Готово
     </button>
