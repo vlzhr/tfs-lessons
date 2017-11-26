@@ -1,31 +1,41 @@
 import {Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges} from '@angular/core';
 import {Purchase} from '../../model/purchase';
+import {AddPurchaseService} from '../add-purchase/add-purchase.service';
+import {WalletService} from '../wallet.service';
+
 
 @Component({
   selector: 'tfs-purchase-preview',
   templateUrl: './purchase-preview.component.html',
-  styleUrls: ['./purchase-preview.component.css']
+  styleUrls: ['./purchase-preview.component.css'],
+  providers: [WalletService]
 })
 export class PurchasePreviewComponent implements OnInit, OnChanges {
   @Input() purchase: Purchase;
   @Input() isOpen: boolean;
+  @Input() service = new AddPurchaseService();
   @Output() previewClick = new EventEmitter();
   @Output() previewDelete = new EventEmitter();
   @Output() edit = new EventEmitter<Purchase>();
-  isEdit;
+  @Output() form;
+  isEdit = false;
 
-  constructor() {
+  constructor(private walletService: WalletService) {
   }
 
   ngOnInit() {
   }
 
-  ngOnChanges() {
-    
+  ngOnChanges(foo) {
+
   }
 
   onClick() {
     this.previewClick.emit();
+  }
+
+  cancel() {
+    this.isEdit = false;
   }
 
   onDeleteClick(event: MouseEvent) {
@@ -34,7 +44,11 @@ export class PurchasePreviewComponent implements OnInit, OnChanges {
     this.previewDelete.emit();
   }
 
-  onEditPurchase() {
+  onEditPurchase(val: Purchase) {
+    this.isEdit = true;
+    // console.log(this.walletService.getEdit());
+    this.walletService.isEditPurchaseOpen = true; // setEdit(true);
+    // console.log(this.walletService.getEdit());
   }
 
   toggleEdit() {

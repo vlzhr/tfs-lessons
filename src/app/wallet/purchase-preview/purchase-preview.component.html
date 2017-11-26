@@ -16,7 +16,8 @@
       <td automation-id="comment">{{purchase.comment}}</td>
     </tr>
   </table>
-  <button class="btn btn-warning btn-block">Редактировать</button>
+  <button (click)="onEditPurchase(purchase)" class="btn btn-warning btn-block" automation-id="begin-edit-btn" *ngIf="isOpen">Редактировать</button>
+  <button (click)="cancel()" class="btn btn-danger btn-block" *ngIf="isEdit" automation-id="cancel-edit-btn">Отмена</button>
 </div>
 <!--<div class="preview-body">-->
 <!--<button class="btn btn-danger btn-block">Отмена</button>-->

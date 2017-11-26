@@ -1,15 +1,27 @@
 import {Injectable} from '@angular/core';
 import {Purchase} from '../model/purchase';
 import {CalcedPurchases} from '../model/calced-purchases';
+import {Observable} from 'rxjs/Observable';
+import {of} from 'rxjs/observable/of';
+import {Subject} from 'rxjs/Subject';
 
 @Injectable()
 export class WalletService {
   private purchases: Purchase[] = [];
   private isInited = false;
+  isEditPurchaseOpen = false;
+  iseChanged: Subject<boolean> = new Subject<boolean>();
 
   constructor() {
   }
 
+  setEdit(open: boolean) {
+    this.isEditPurchaseOpen = open;
+    this.iseChanged.next(open);
+  }
+  getEdit() {
+    return this.isEditPurchaseOpen;
+  }
   addPurchase(newPurchase: Purchase) {
     this.purchases.unshift(newPurchase);
   }

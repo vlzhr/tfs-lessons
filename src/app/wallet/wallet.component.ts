@@ -3,6 +3,7 @@ import {Purchase} from '../model/purchase';
 import {WalletService} from './wallet.service';
 import {Wallet} from '../model/wallet';
 import {WalletHttpService} from './wallet-http.service';
+import {Observable} from 'rxjs/Observable';
 
 @Component({
   selector: 'tfs-wallet',
@@ -16,19 +17,36 @@ export class WalletComponent implements OnInit {
   purchases: Purchase[] = [];
   total = 0;
   isAddPurchaseOpen = false;
+  isEditPurchaseOpen = false;
 
   private currentOpen: number;
 
   constructor(private walletService: WalletService,
               private walletHttpService: WalletHttpService) {
+      this.isEditPurchaseOpen = walletService.isEditPurchaseOpen;
+      walletService.iseChanged.subscribe((value) => {
+        console.log(value);
+        this.isEditPurchaseOpen = value;
+    });
   }
 
   get balance(): number {
     return this.wallet.amount - this.total;
   }
 
+  getIsEdit() {
+    return this.walletService.getEdit();
+  }
+
   ngOnInit() {
+
     this.loadPurchases();
+  }
+
+  NgOnChanges() {
+    console.log('hey');
+    this.isEditPurchaseOpen = this.walletService.isEditPurchaseOpen;
+    console.log(this.isEditPurchaseOpen);
   }
 
   onAddPurchase(newPurchase: Purchase) {
@@ -61,7 +79,9 @@ export class WalletComponent implements OnInit {
       });
   }
 
-  onPurchaseEdit() {
+  onPurchaseEdit(val) {
+    this.walletHttpService.updatePurchase(val);
+    this.walletHttpService.getPurchases(this.wallet.id);
   }
 
   isCurrentOpen(index: number): boolean {

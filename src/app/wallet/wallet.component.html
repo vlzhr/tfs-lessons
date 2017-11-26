@@ -18,6 +18,9 @@
   <div class="card-body" *ngIf="isAddPurchaseOpen">
     <tfs-add-purchase automation-id="new-purchase-form" (addPurchase)="onAddPurchase($event)"></tfs-add-purchase>
   </div>
+  <div class="card-body" *ngIf="this.walletService.ise">
+    <tfs-add-purchase automation-id="edit-purchase-form" (addPurchase)="onAddPurchase($event)"></tfs-add-purchase>
+  </div>
   <ul class="list-group list-group-flush">
     <li class="list-group-item" *ngFor="let purchase of purchases; let i = index">
       <tfs-purchase-preview [attr.automation-id]="'purchase-preview-' + i"
